@@ -26,6 +26,7 @@ fun App(simulator: TrackingSimulator) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
+                // Input for shipment ID
                 TextField(
                     value = inputText,
                     onValueChange = { inputText = it },
@@ -35,6 +36,7 @@ fun App(simulator: TrackingSimulator) {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+                //Button to submit Shipment ID
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Button(
                         onClick = {
@@ -52,9 +54,12 @@ fun App(simulator: TrackingSimulator) {
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
+            //Tracked Shipments
             items(viewHelpers) { viewHelper ->
                 if (viewHelper.shipmentId.value.isNotEmpty()) {
-                    shipmentDetails(viewHelper)
+                    shipmentDetails(viewHelper) {
+                        viewHelpers.remove(viewHelper)
+                    }
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
@@ -64,7 +69,7 @@ fun App(simulator: TrackingSimulator) {
 }
 
 @Composable
-fun shipmentDetails(viewHelper: TrackerViewHelper) {
+fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
     // Display of the tracked Shipment
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp)
@@ -83,6 +88,13 @@ fun shipmentDetails(viewHelper: TrackerViewHelper) {
         Text("Update History:")
         viewHelper.shipmentUpdateHistory.value.forEach { update ->
             Text("- $update")
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = onStopTracking,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Text("Stop Tracking")
         }
     }
 }
