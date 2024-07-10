@@ -16,7 +16,6 @@ class TrackingSimulator {
     )
 
     fun findShipment(id: String): Shipment? {
-        println(shipments.find { it.id == id })
         return shipments.find { it.id == id }
     }
 
@@ -35,8 +34,6 @@ class TrackingSimulator {
                 val update = ShippingUpdate(updateType, shipmentId, timestamp, otherInfo)
                 processUpdate(update)
                 delay(1000L)
-                // Testing
-                //println(update)
             }
         }
     }

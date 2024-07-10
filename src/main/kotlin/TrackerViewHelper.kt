@@ -11,8 +11,6 @@ class TrackerViewHelper : ShipmentObserver {
 
     fun trackShipment(id: String, simulator: TrackingSimulator) {
         val shipment = simulator.findShipment(id)
-        println(shipment)
-        println("hi?")
         if (shipment != null) {
             shipment.addObserver(this)
             trackedShipments[id] = shipment
