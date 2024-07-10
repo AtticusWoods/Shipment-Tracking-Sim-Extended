@@ -1,3 +1,5 @@
+import updateStrategies.*
+
 class TrackingSimulator {
     private val shipments = mutableListOf<Shipment>()
     private val updateStrategies = mapOf(
@@ -8,7 +10,7 @@ class TrackingSimulator {
         "delayed" to DelayedUpdateStrategy(),
         "lost" to LostUpdateStrategy(),
         "canceled" to CanceledUpdateStrategy(),
-        "doteadded" to NoteAddedUpdateStrategy()
+        "noteadded" to NoteAddedUpdateStrategy()
     )
 
     fun findShipment(id: String): Shipment? {
