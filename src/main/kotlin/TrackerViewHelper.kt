@@ -21,6 +21,7 @@ class TrackerViewHelper : ShipmentObserver {
     }
 
     override fun update(shipment: Shipment) {
+        // Grabs shipment info to display changes
         shipmentId.value = shipment.id
         shipmentNotes.value = shipment.notes
         shipmentUpdateHistory.value = shipment.updateHistory.map {

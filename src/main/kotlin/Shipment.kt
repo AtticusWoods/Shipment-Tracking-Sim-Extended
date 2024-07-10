@@ -1,3 +1,4 @@
+//Shipment class that gets observed
 class Shipment(val id: String) {
     var status: String = "created"
     val notes = mutableListOf<String>()
