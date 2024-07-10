@@ -1,3 +1,4 @@
+import kotlinx.coroutines.*
 import updateStrategies.*
 import java.io.File
 
@@ -15,6 +16,7 @@ class TrackingSimulator {
     )
 
     fun findShipment(id: String): Shipment? {
+        println(shipments.find { it.id == id })
         return shipments.find { it.id == id }
     }
 
@@ -22,7 +24,7 @@ class TrackingSimulator {
         shipments.add(shipment)
     }
 
-    fun runSimulation(filePath: String) {
+    suspend fun runSimulation(filePath: String) {
         File(filePath).useLines { lines ->
             lines.forEach { line ->
                 val parts = line.split(",")
@@ -32,17 +34,31 @@ class TrackingSimulator {
                 val otherInfo = if (parts.size > 3) parts[3] else null
                 val update = ShippingUpdate(updateType, shipmentId, timestamp, otherInfo)
                 processUpdate(update)
+                delay(1000L)
+                // Testing
+                //println(update)
             }
         }
     }
 
     fun processUpdate(update: ShippingUpdate) {
-        val shipment = findShipment(update.shipmentId)
-        if (shipment != null) {
-            val strategy = updateStrategies[update.updateType]
-            strategy?.handleUpdate(shipment, update) ?: println("No strategy found for update type: ${update.updateType}")
-        } else {
-            println("Shipment not found: ${update.shipmentId}")
+        when (update.updateType) {
+            "created" -> {
+                // Create a new shipment and add it to the list
+                val newShipment = Shipment(update.shipmentId)
+                newShipment.addUpdate(update)
+                addShipment(newShipment)
+                println("Shipment created: ${update.shipmentId}")
+            }
+            else -> {
+                val shipment = findShipment(update.shipmentId)
+                if (shipment != null) {
+                    val strategy = updateStrategies[update.updateType]
+                    strategy?.handleUpdate(shipment, update) ?: println("No strategy found for update type: ${update.updateType}")
+                } else {
+                    println("Shipment not found: ${update.shipmentId}")
+                }
+            }
         }
     }
 }

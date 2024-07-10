@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 @Preview
-fun App() {
-    val simulator = remember { TrackingSimulator() }
+fun App(simulator: TrackingSimulator) {
+    //val simulator = remember { TrackingSimulator() }
     val viewHelper = remember { TrackerViewHelper() }
     val coroutineScope = rememberCoroutineScope()
     var inputText by remember { mutableStateOf("") }
@@ -80,7 +80,12 @@ fun shipmentDetails(viewHelper: TrackerViewHelper) {
 }
 
 fun main() = application {
+    val simulator = TrackingSimulator()
+    val coroutineScope = rememberCoroutineScope()
+    coroutineScope.launch { simulator.runSimulation("test.txt") }
+
+
     Window(onCloseRequest = ::exitApplication) {
-        App()
+        App(simulator)
     }
 }
