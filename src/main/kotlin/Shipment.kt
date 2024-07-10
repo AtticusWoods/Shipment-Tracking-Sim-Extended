@@ -1,7 +1,7 @@
 class Shipment(val id: String) {
     var status: String = "created"
-    private val notes = mutableListOf<String>()
-    private val updateHistory = mutableListOf<ShippingUpdate>()
+    val notes = mutableListOf<String>()
+    val updateHistory = mutableListOf<ShippingUpdate>()
     var expectedDeliveryDateTimestamp: Long = 0
     var currentLocation: String = ""
     private val observers = mutableListOf<ShipmentObserver>()

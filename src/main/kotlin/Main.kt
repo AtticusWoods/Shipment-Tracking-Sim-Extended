@@ -36,7 +36,7 @@ fun App() {
             Button(
                 onClick = {
                     coroutineScope.launch {
-                        viewHelper.trackShipment(inputText)
+                        viewHelper.trackShipment(inputText, simulator)
                     }
                     println("button Pressed")
                 },
@@ -64,7 +64,7 @@ fun shipmentDetails(viewHelper: TrackerViewHelper) {
             Spacer(modifier = Modifier.height(8.dp))
             Text("Status: ${viewHelper.shipmentStatus.value}")
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Expected Delivery Date: ${viewHelper.expectedShipmentDeliveryDate.value}")
+            Text("Expected Delivery Date: ${viewHelper.expectedDeliveryDate.value}")
             Spacer(modifier = Modifier.height(8.dp))
             Text("Notes:")
             viewHelper.shipmentNotes.value.forEach { note ->

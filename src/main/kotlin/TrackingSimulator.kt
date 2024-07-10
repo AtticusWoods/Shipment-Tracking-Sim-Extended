@@ -1,4 +1,5 @@
 import updateStrategies.*
+import java.io.File
 
 class TrackingSimulator {
     private val shipments = mutableListOf<Shipment>()
@@ -21,8 +22,18 @@ class TrackingSimulator {
         shipments.add(shipment)
     }
 
-    fun runSimulation() {
-        // Read updates from file and call processUpdate for each update
+    fun runSimulation(filePath: String) {
+        File(filePath).useLines { lines ->
+            lines.forEach { line ->
+                val parts = line.split(",")
+                val updateType = parts[0]
+                val shipmentId = parts[1]
+                val timestamp = parts[2].toLong()
+                val otherInfo = if (parts.size > 3) parts[3] else null
+                val update = ShippingUpdate(updateType, shipmentId, timestamp, otherInfo)
+                processUpdate(update)
+            }
+        }
     }
 
     fun processUpdate(update: ShippingUpdate) {
