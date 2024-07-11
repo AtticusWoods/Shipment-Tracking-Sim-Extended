@@ -25,7 +25,7 @@ class TrackerViewHelper : ShipmentObserver {
         shipmentId.value = shipment.id
         shipmentNotes.value = shipment.notes
         shipmentUpdateHistory.value = shipment.updateHistory.map {
-            "Shipment went from ${it.updateType} on ${it.timestamp}"
+            "Shipment changed to ${it.updateType} on ${it.timestamp}"
         }
         expectedDeliveryDate.value = shipment.expectedDeliveryDateTimestamp.toString()
         shipmentStatus.value = shipment.status
