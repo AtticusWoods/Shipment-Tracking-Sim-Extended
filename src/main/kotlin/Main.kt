@@ -1,4 +1,7 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -9,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -17,6 +21,8 @@ fun App(simulator: TrackingSimulator) {
     val viewHelpers = remember { mutableStateListOf<TrackerViewHelper>() }
     val coroutineScope = rememberCoroutineScope()
     var inputText by remember { mutableStateOf("") }
+    var showError by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
 
 
     MaterialTheme {
@@ -42,8 +48,18 @@ fun App(simulator: TrackingSimulator) {
                         onClick = {
                             coroutineScope.launch {
                                 val viewHelper = TrackerViewHelper()
-                                viewHelpers.add(viewHelper)
                                 viewHelper.trackShipment(inputText, simulator)
+                                if (viewHelper.shipmentId.value.isNotEmpty()) {
+                                    viewHelpers.add(viewHelper)
+                                } else {
+                                    showError = true
+                                    errorMessage = "$inputText is not a valid shipment!"
+                                    coroutineScope.launch {
+                                        delay(3000)
+                                        showError = false
+                                    }
+                                }
+
                             }
                         },
                         modifier = Modifier.align(Alignment.Center)
@@ -53,6 +69,18 @@ fun App(simulator: TrackingSimulator) {
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
+
+                AnimatedVisibility(
+                    visible = showError,
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
+                    Text(
+                        text = errorMessage,
+                        color = MaterialTheme.colors.error,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
             }
             //Tracked Shipments
             items(viewHelpers) { viewHelper ->
