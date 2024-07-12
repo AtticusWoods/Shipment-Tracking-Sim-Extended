@@ -106,6 +106,8 @@ fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
         Spacer(modifier = Modifier.height(8.dp))
         Text("Status: ${viewHelper.shipmentStatus.value}")
         Spacer(modifier = Modifier.height(8.dp))
+        Text("Location: ${viewHelper.shipmentLocation.value}")
+        Spacer(modifier = Modifier.height(8.dp))
         Text("Expected Delivery Date: ${viewHelper.expectedDeliveryDate.value}")
         Spacer(modifier = Modifier.height(8.dp))
         Text("Notes:")
