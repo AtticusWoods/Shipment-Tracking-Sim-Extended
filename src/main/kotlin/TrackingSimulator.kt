@@ -3,7 +3,7 @@ import updateStrategies.*
 import java.io.File
 
 class TrackingSimulator {
-    private val shipments = mutableListOf<Shipment>()
+    val shipments = mutableListOf<Shipment>()
 
     //List of strategies, this should be the only place you need to add a new one other than creating the new strat
     private val updateStrategies = mapOf(
@@ -21,7 +21,7 @@ class TrackingSimulator {
         return shipments.find { it.id == id }
     }
 
-    private fun addShipment(shipment: Shipment) {
+    fun addShipment(shipment: Shipment) {
         shipments.add(shipment)
     }
 
