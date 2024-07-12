@@ -40,7 +40,7 @@ class TrackingSimulator {
         }
     }
 
-    private fun processUpdate(update: ShippingUpdate) {
+    fun processUpdate(update: ShippingUpdate) {
         when (update.updateType) {
             //created is special among the strategies
             "created" -> {
