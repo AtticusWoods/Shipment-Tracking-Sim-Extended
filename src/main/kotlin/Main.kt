@@ -14,6 +14,8 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.sql.Date
+import java.text.SimpleDateFormat
 
 @Composable
 @Preview
@@ -23,6 +25,7 @@ fun App(simulator: TrackingSimulator) {
     var inputText by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
+
 
 
     MaterialTheme {
@@ -108,7 +111,7 @@ fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
         Spacer(modifier = Modifier.height(8.dp))
         Text("Location: ${viewHelper.shipmentLocation.value}")
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Expected Delivery Date: ${viewHelper.expectedDeliveryDate.value}")
+        Text("Expected Delivery Date: ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(viewHelper.expectedDeliveryDate.value.toLong()))}")
         Spacer(modifier = Modifier.height(8.dp))
         Text("Notes:")
         viewHelper.shipmentNotes.value.forEach { note ->
