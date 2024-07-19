@@ -28,24 +28,29 @@ class TrackingSimulator {
     suspend fun runSimulation(filePath: String) {
         File(filePath).useLines { lines ->
             lines.forEach { line ->
-                val parts = line.split(",")
-                val updateType = parts[0]
-                val shipmentId = parts[1]
-                val timestamp = parts[2].toLong()
-                val otherInfo = if (parts.size > 3) parts[3] else null
-                val update = ShippingUpdate(updateType, shipmentId, timestamp, otherInfo)
+                val update = splitUpdate(line)
                 processUpdate(update)
                 delay(1000L)
             }
         }
     }
 
+    fun splitUpdate(line: String): ShippingUpdate {
+        val parts = line.split(",")
+        val updateType = parts[0]
+        val shipmentId = parts[1]
+        val timestamp = parts[2].toLong()
+        val otherInfo = if (parts.size > 3) parts[3] else null
+        val update = ShippingUpdate(updateType, shipmentId, timestamp, otherInfo)
+        return update
+    }
+
     fun processUpdate(update: ShippingUpdate) {
         when (update.updateType) {
             //created is special among the strategies
             "created" -> {
-                // Create a new shipment and add it to the list
-                val newShipment = Shipment(update.shipmentId)
+                // Create a new shipment and add it to the list // Default is Standard
+                val newShipment = ShipmentFactory.createShipment(update.otherInfo ?: "standard", update.shipmentId)
                 newShipment.addUpdate(update)
                 addShipment(newShipment)
                 println("Shipment created: ${update.shipmentId}")

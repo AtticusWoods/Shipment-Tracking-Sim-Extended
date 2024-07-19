@@ -25,11 +25,11 @@ fun App(simulator: TrackingSimulator) {
     var inputText by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
+    var updateString by remember { mutableStateOf("") }
 
 
 
     MaterialTheme {
-
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -94,10 +94,63 @@ fun App(simulator: TrackingSimulator) {
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
+            // Input for shipment update
+            item {
+                TextField(
+                    value = updateString,
+                    onValueChange = { updateString = it },
+                    label = { Text("Enter Shipment Update") },
+                    modifier = Modifier.fillMaxWidth()
+                )
 
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Button to submit Shipment Update
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                val update = simulator.splitUpdate(updateString)
+                                simulator.processUpdate(update)
+                                updateString = ""
+                            }
+                        },
+                        modifier = Modifier.align(Alignment.Center)
+                    ) {
+                        Text("Add Shipment Update")
+                    }
+                }
+            }
         }
     }
 }
+
+//@Composable
+//fun InputWindow(onAddUpdate: (String) -> Unit) {
+//    var updateString by remember { mutableStateOf("") }
+//
+//    Column(modifier = Modifier.padding(16.dp)) {
+//        Text("Add Shipment Update")
+//        Spacer(modifier = Modifier.height(8.dp))
+//
+//        TextField(
+//            value = updateString,
+//            onValueChange = {
+//                updateString = it
+//            },
+//            label = { Text("Update String") }
+//        )
+//        Spacer(modifier = Modifier.height(8.dp))
+//
+//        Button(onClick = {
+//            onAddUpdate(updateString)
+//        }) {
+//            Text("Add Update")
+//        }
+//    }
+//}
+
+
 
 @Composable
 fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
@@ -136,7 +189,7 @@ fun main() = application {
     val simulator = TrackingSimulator()
     val coroutineScope = rememberCoroutineScope()
     // Using the test.txt at root for the assignment
-    coroutineScope.launch { simulator.runSimulation("test.txt") }
+    //coroutineScope.launch { simulator.runSimulation("test.txt") }
 
 
     Window(onCloseRequest = ::exitApplication) {
