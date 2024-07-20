@@ -7,6 +7,7 @@ class TrackerViewHelper : ShipmentObserver {
     val expectedDeliveryDate = mutableStateOf("")
     val shipmentStatus = mutableStateOf("")
     val shipmentLocation = mutableStateOf("")
+    val shipmentType = mutableStateOf("")
 
     private val trackedShipments = mutableMapOf<String, Shipment>()
 
@@ -31,5 +32,6 @@ class TrackerViewHelper : ShipmentObserver {
         expectedDeliveryDate.value = shipment.expectedDeliveryDateTimestamp.toString()
         shipmentStatus.value = shipment.status
         shipmentLocation.value = shipment.currentLocation
+        shipmentType.value = shipment.shipmentType
     }
 }

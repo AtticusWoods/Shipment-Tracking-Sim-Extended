@@ -6,7 +6,7 @@ abstract class Shipment(val id: String) {
     var expectedDeliveryDateTimestamp: Long = 0
     var currentLocation: String = ""
     private val observers = mutableListOf<ShipmentObserver>()
-    private val shipmentType = String
+    abstract val shipmentType: String
 
     fun addNote(note: String) {
         notes.add(note)

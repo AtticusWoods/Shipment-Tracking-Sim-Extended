@@ -160,6 +160,8 @@ fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
     ) {
         Text("Shipment ID: ${viewHelper.shipmentId.value}", style = MaterialTheme.typography.h6)
         Spacer(modifier = Modifier.height(8.dp))
+        Text("Shipment Type: ${viewHelper.shipmentType.value}", style = MaterialTheme.typography.h6)
+        Spacer(modifier = Modifier.height(8.dp))
         Text("Status: ${viewHelper.shipmentStatus.value}")
         Spacer(modifier = Modifier.height(8.dp))
         Text("Location: ${viewHelper.shipmentLocation.value}")
