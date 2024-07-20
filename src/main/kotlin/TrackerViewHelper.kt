@@ -9,13 +9,13 @@ class TrackerViewHelper : ShipmentObserver {
     val shipmentLocation = mutableStateOf("")
     val shipmentType = mutableStateOf("")
 
-    private val trackedShipments = mutableMapOf<String, Shipment>()
+    private val trackedShipment = mutableMapOf<String, Shipment>()
 
     fun trackShipment(id: String, simulator: TrackingSimulator) {
         val shipment = simulator.findShipment(id)
         if (shipment != null) {
             shipment.addObserver(this)
-            trackedShipments[id] = shipment
+            trackedShipment[id] = shipment
             update(shipment)
         } else {
             println("Shipment not found: $id")
@@ -33,5 +33,11 @@ class TrackerViewHelper : ShipmentObserver {
         shipmentStatus.value = shipment.status
         shipmentLocation.value = shipment.currentLocation
         shipmentType.value = shipment.shipmentType
+    }
+
+    override fun stopTracking(id: String){
+        val shipment = trackedShipment[id]
+        shipment?.removeObserver(this)
+
     }
 }

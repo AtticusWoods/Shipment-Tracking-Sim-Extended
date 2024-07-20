@@ -152,8 +152,8 @@ fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
             if(note.contains("Error")) {
                 Text("- $note", color = Color.Red)
             } else {
-                Text("- $note")
-            }
+            Text("- $note")
+                }
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text("Update History:")
@@ -162,7 +162,10 @@ fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
         }
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = onStopTracking,
+            onClick = {
+                viewHelper.stopTracking(viewHelper.shipmentId.value)
+                onStopTracking
+            },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text("Stop Tracking")
