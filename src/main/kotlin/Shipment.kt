@@ -4,9 +4,10 @@ abstract class Shipment(val id: String) {
     val notes = mutableListOf<String>()
     val updateHistory = mutableListOf<ShippingUpdate>()
     var expectedDeliveryDateTimestamp: Long = 0
-    var currentLocation: String = ""
+    var currentLocation: String = "Unknown"
     private val observers = mutableListOf<ShipmentObserver>()
     abstract val shipmentType: String
+    abstract val shipmentError: String
 
     fun addNote(note: String) {
         notes.add(note)
@@ -30,5 +31,5 @@ abstract class Shipment(val id: String) {
         observers.forEach { it.update(this) }
     }
 
-    abstract fun deliveryRequirements(deliveryTime: Long): Boolean
+    abstract fun deliveryRequirements()
 }

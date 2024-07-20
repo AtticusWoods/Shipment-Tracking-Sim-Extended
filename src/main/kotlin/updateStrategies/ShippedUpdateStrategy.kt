@@ -8,5 +8,6 @@ class ShippedUpdateStrategy : UpdateStrategy {
         shipment.status = "shipped"
         shipment.expectedDeliveryDateTimestamp = update.otherInfo?.toLongOrNull() ?: shipment.expectedDeliveryDateTimestamp
         shipment.addUpdate(update)
+        shipment.deliveryRequirements()
     }
 }

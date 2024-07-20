@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -113,6 +114,7 @@ fun App(simulator: TrackingSimulator) {
                                 val update = simulator.splitUpdate(updateString)
                                 simulator.processUpdate(update)
                                 updateString = ""
+
                             }
                         },
                         modifier = Modifier.align(Alignment.Center)
@@ -124,33 +126,6 @@ fun App(simulator: TrackingSimulator) {
         }
     }
 }
-
-//@Composable
-//fun InputWindow(onAddUpdate: (String) -> Unit) {
-//    var updateString by remember { mutableStateOf("") }
-//
-//    Column(modifier = Modifier.padding(16.dp)) {
-//        Text("Add Shipment Update")
-//        Spacer(modifier = Modifier.height(8.dp))
-//
-//        TextField(
-//            value = updateString,
-//            onValueChange = {
-//                updateString = it
-//            },
-//            label = { Text("Update String") }
-//        )
-//        Spacer(modifier = Modifier.height(8.dp))
-//
-//        Button(onClick = {
-//            onAddUpdate(updateString)
-//        }) {
-//            Text("Add Update")
-//        }
-//    }
-//}
-
-
 
 @Composable
 fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
@@ -166,11 +141,19 @@ fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
         Spacer(modifier = Modifier.height(8.dp))
         Text("Location: ${viewHelper.shipmentLocation.value}")
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Expected Delivery Date: ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(viewHelper.expectedDeliveryDate.value.toLong()))}")
+        if (viewHelper.expectedDeliveryDate.value == "0") {
+            Text("Expected Delivery Date: - - -")
+        } else {
+            Text("Expected Delivery Date: ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(viewHelper.expectedDeliveryDate.value.toLong()))}")
+        }
         Spacer(modifier = Modifier.height(8.dp))
         Text("Notes:")
         viewHelper.shipmentNotes.value.forEach { note ->
-            Text("- $note")
+            if(note.contains("Error")) {
+                Text("- $note", color = Color.Red)
+            } else {
+                Text("- $note")
+            }
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text("Update History:")
