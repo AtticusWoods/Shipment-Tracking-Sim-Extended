@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ShipmentTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-07-22T18:57:41" hostname="FINCHCOMP" time="0.012">
+  <properties/>
+  <testcase name="testNotifyObservers" classname="ShipmentTests" time="0.008"/>
+  <testcase name="testAddNote" classname="ShipmentTests" time="0.0"/>
+  <testcase name="testAddObserver" classname="ShipmentTests" time="0.003"/>
+  <testcase name="testAddUpdate" classname="ShipmentTests" time="0.001"/>
+  <testcase name="testRemoveObserver" classname="ShipmentTests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
