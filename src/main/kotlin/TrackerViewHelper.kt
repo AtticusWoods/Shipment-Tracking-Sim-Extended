@@ -1,4 +1,6 @@
 import androidx.compose.runtime.*
+import java.sql.Date
+import java.text.SimpleDateFormat
 
 class TrackerViewHelper : ShipmentObserver {
     val shipmentId = mutableStateOf("")
@@ -27,7 +29,7 @@ class TrackerViewHelper : ShipmentObserver {
         shipmentId.value = shipment.id
         shipmentNotes.value = shipment.notes
         shipmentUpdateHistory.value = shipment.updateHistory.map {
-            "Shipment changed to ${it.updateType} on ${it.timestamp}"
+            "Shipment changed to ${it.updateType} on ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(it.timestamp))}"
         }
         expectedDeliveryDate.value = shipment.expectedDeliveryDateTimestamp.toString()
         shipmentStatus.value = shipment.status
