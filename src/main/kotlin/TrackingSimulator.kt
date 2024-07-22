@@ -2,7 +2,7 @@ import kotlinx.coroutines.*
 import updateStrategies.*
 import java.io.File
 
-class TrackingSimulator {
+object TrackingSimulator {
     val shipments = mutableListOf<Shipment>()
 
     //List of strategies, this should be the only place you need to add a new one other than creating the new strat

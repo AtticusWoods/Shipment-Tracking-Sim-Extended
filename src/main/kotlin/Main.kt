@@ -174,7 +174,7 @@ fun shipmentDetails(viewHelper: TrackerViewHelper, onStopTracking: () -> Unit) {
 }
 
 fun main() = application {
-    val simulator = TrackingSimulator()
+    val simulator = TrackingSimulator
     val coroutineScope = rememberCoroutineScope()
     // Using the test.txt at root for the assignment
     //coroutineScope.launch { simulator.runSimulation("test.txt") }
