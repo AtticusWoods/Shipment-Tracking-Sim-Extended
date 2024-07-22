@@ -2,6 +2,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import Shipment
 import ShippingUpdate
+import shipmentTypes.StandardShipment
 import updateStrategies.*
 
 class UpdateStrategyTest {
@@ -9,7 +10,7 @@ class UpdateStrategyTest {
     @Test
     fun `test CanceledUpdateStrategy handles update correctly`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123")
+        val shipment = StandardShipment("ABC123")
         val update = ShippingUpdate("canceled", "ABC123", 1234)
 
         // Create instance of CanceledUpdateStrategy
@@ -29,8 +30,8 @@ class UpdateStrategyTest {
     @Test
     fun `test CreatedUpdateStrategy handles update correctly`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123")
-        val update = ShippingUpdate("created", "ABC123", 1234)
+        val shipment = StandardShipment("ABC1234")
+        val update = ShippingUpdate("created", "ABC1234", 1234)
 
         // Create instance of CanceledUpdateStrategy
         val strategy = CreatedUpdateStrategy()
@@ -49,8 +50,8 @@ class UpdateStrategyTest {
     @Test
     fun `test DelayedUpdateStrategy handles update correctly`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123")
-        val update = ShippingUpdate("delayed", "ABC123", 1234)
+        val shipment = StandardShipment("ABC12345")
+        val update = ShippingUpdate("delayed", "ABC12345", 1234)
 
         // Create instance of CanceledUpdateStrategy
         val strategy = DelayedUpdateStrategy()
@@ -69,8 +70,8 @@ class UpdateStrategyTest {
     @Test
     fun `test DeliveredUpdateStrategy handles update correctly`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123")
-        val update = ShippingUpdate("delivered", "ABC123", 1234)
+        val shipment = StandardShipment("ABC123456")
+        val update = ShippingUpdate("delivered", "ABC123456", 1234)
 
         // Create instance of CanceledUpdateStrategy
         val strategy = DeliveredUpdateStrategy()
@@ -89,7 +90,7 @@ class UpdateStrategyTest {
     @Test
     fun `test LocationUpdateStrategy handles update correctly`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123")
+        val shipment = StandardShipment("ABC1234567")
         val update = ShippingUpdate("location", "ABC123", 1234, "Idaho")
 
         // Create instance of CanceledUpdateStrategy
@@ -112,7 +113,7 @@ class UpdateStrategyTest {
     @Test
     fun `test LostUpdateStrategy handles update correctly`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123")
+        val shipment = StandardShipment("ABC1234567")
         val update = ShippingUpdate("lost", "ABC123", 1234)
 
         // Create instance of CanceledUpdateStrategy
@@ -131,9 +132,9 @@ class UpdateStrategyTest {
     @Test
     fun `test NoteAddedUpdateStrategy handles update correctly`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123")
-        val update = ShippingUpdate("noteadded", "ABC123", 1234, "Package Crushed oops")
-        val update2 = ShippingUpdate("noteadded", "ABC123", 1234, "Package eaten by Godzilla")
+        val shipment = StandardShipment("ABC12345678")
+        val update = ShippingUpdate("noteadded", "ABC12345678", 1234, "Package Crushed oops")
+        val update2 = ShippingUpdate("noteadded", "ABC12345678", 1234, "Package eaten by Godzilla")
 
         // Create instance of CanceledUpdateStrategy
         val strategy = NoteAddedUpdateStrategy()
@@ -157,8 +158,8 @@ class UpdateStrategyTest {
     @Test
     fun `test ShippedUpdateStrategy handles update correctly`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123")
-        val update = ShippingUpdate("shipped", "ABC123", 1234, "2005")
+        val shipment = StandardShipment("ABC2324")
+        val update = ShippingUpdate("shipped", "ABC234", 1234, "2005")
 
         // Create instance of CanceledUpdateStrategy
         val strategy = ShippedUpdateStrategy()

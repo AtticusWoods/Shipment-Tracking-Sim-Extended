@@ -14,9 +14,6 @@ class BulkShipment(id: String) : Shipment(id) {
             // Divide by 1000 to account for conversion from milliseconds to seconds
         }
         val estDeliveryDate = LocalDateTime.ofEpochSecond(expectedDeliveryDateTimestamp/1000, 0, ZoneOffset.UTC)
-        println("created date: $createdDate")
-        println("est-delivery date: $estDeliveryDate")
-        println(ChronoUnit.DAYS.between(createdDate, estDeliveryDate))
 
         if (ChronoUnit.DAYS.between(createdDate, estDeliveryDate) < 3) {
             addNote(shipmentError)

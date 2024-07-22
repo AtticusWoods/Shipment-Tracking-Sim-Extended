@@ -1,5 +1,6 @@
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import shipmentTypes.StandardShipment
 
 
 class TrackingSimulatorTests {
@@ -7,8 +8,8 @@ class TrackingSimulatorTests {
     @Test
     fun `test addShipment adds`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123")
-        val simulator = TrackingSimulator()
+        val shipment = StandardShipment("ABC123")
+        val simulator = TrackingSimulator
 
         //add shipment to simulator
         simulator.addShipment(shipment)
@@ -21,8 +22,8 @@ class TrackingSimulatorTests {
     @Test
     fun `test findShipment`() {
         // Create necessary objects
-        val shipment = Shipment("ABC123567")
-        val simulator = TrackingSimulator()
+        val shipment = StandardShipment("ABC123567")
+        val simulator = TrackingSimulator
 
         //add shipment to simulator
         simulator.addShipment(shipment)
